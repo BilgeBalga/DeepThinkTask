@@ -1,0 +1,44 @@
+@model DeepThinkTask.Models.Slider
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Slider Sil";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Slider Silme Onayı</h3>
+            </div>
+            <div class="card-body">
+                <h4 class="text-danger">Bu slider'ı silmek istediğinizden emin misiniz?</h4>
+                <dl class="row">
+                    <dt class="col-sm-3">Başlık:</dt>
+                    <dd class="col-sm-9">@Model.Title</dd>
+                    <dt class="col-sm-3">Açıklama:</dt>
+                    <dd class="col-sm-9">@Model.Description</dd>
+                    <dt class="col-sm-3">Sıra:</dt>
+                    <dd class="col-sm-9">@Model.Order</dd>
+                    <dt class="col-sm-3">Görsel:</dt>
+                    <dd class="col-sm-9">
+                        @if (!string.IsNullOrEmpty(Model.ImagePath))
+                        {
+                            <img src="~/@Model.ImagePath" alt="@Model.Title" style="width: 100px; height: auto;">
+                        }
+                        else
+                        {
+                            <span>Görsel Yok</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer">
+                <form asp-action="SliderDelete">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger">Sil</button>
+                    <a asp-action="Sliders" class="btn btn-secondary">İptal</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

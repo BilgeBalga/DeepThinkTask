@@ -1,0 +1,55 @@
+@model IEnumerable<DeepThinkTask.Models.Slider>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Slider Yönetimi";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Slider Listesi</h3>
+                <div class="card-tools">
+                    <a asp-action="SliderCreate" class="btn btn-primary btn-sm">Yeni Slider Ekle</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Başlık</th>
+                            <th>Açıklama</th>
+                            <th>Görsel</th>
+                            <th>Sıra</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.Description</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImagePath))
+                                    {
+                                        <img src="~/@item.ImagePath" alt="@item.Title" style="width: 100px; height: auto;">
+                                    }
+                                    else
+                                    {
+                                        <span>Görsel Yok</span>
+                                    }
+                                </td>
+                                <td>@item.Order</td>
+                                <td>
+                                    <a asp-action="SliderEdit" asp-route-id="@item.Id" class="btn btn-info btn-sm">Düzenle</a> |
+                                    <a asp-action="SliderDelete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

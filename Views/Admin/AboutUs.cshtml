@@ -1,0 +1,71 @@
+@model DeepThinkTask.Models.AboutUs
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Hakkımızda Yönetimi";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Hakkımızda İçeriğini Düzenle</h3>
+            </div>
+            <form asp-action="AboutUs" method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ManagerImagePath" />
+
+                    <div class="form-group">
+                        <label asp-for="Content">İçerik</label>
+                        <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EstablishmentYear">Kuruluş Yılı</label>
+                        <input asp-for="EstablishmentYear" class="form-control" />
+                        <span asp-validation-for="EstablishmentYear" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Mission">Misyon</label>
+                        <textarea asp-for="Mission" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Mission" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Vision">Vizyon</label>
+                        <textarea asp-for="Vision" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Vision" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ManagerName">Yönetici Adı</label>
+                        <input asp-for="ManagerName" class="form-control" />
+                        <span asp-validation-for="ManagerName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Yönetici Resmi</label>
+                        @if (!string.IsNullOrEmpty(Model.ManagerImagePath))
+                        {
+                            <img src="~/@Model.ManagerImagePath" alt="Yönetici Resmi" style="width: 150px; height: auto; display: block; margin-bottom: 10px;">
+                        }
+                        else
+                        {
+                            <p>Mevcut Yönetici Resmi Yok</p>
+                        }
+                        <input type="file" asp-for="ManagerImageFile" class="form-control" />
+                        <span class="text-muted">Mevcut görseli değiştirmek için yeni bir görsel seçin.</span>
+                        <span asp-validation-for="ManagerImageFile" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
